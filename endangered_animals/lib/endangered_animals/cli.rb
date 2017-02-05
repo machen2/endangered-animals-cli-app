@@ -66,10 +66,11 @@ class EndangeredAnimals::CLI
   end
 
   def print_animal_list(input)
-    puts "", "-------Animal Name-----------Scientific Name---------Conservation Status------"
+    puts "", "      Animal Name                  Scientific Name               "#Conservation Status"
+    puts "-------------------------------------------------------------------" #{}"--------------------"
     animals = EndangeredAnimals::Animal.create_from_index_page(input)
     animals.each.with_index(1) do |animal, index|
-      puts "#{index}.    #{animal.name}    #{animal.scientific_name}    #{animal.status}       #{animal.url}"
+      puts "#{index.to_s.rjust(2)}#{".".ljust(3)} #{animal.name.ljust(28)} #{animal.scientific_name.ljust(30)}" #" #{animal.status}"
     end
   end
 
