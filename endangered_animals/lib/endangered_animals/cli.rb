@@ -13,25 +13,44 @@ class EndangeredAnimals::CLI
 
   def start
     puts "Enter the number of the conservation status you would like to see or type exit:"
-    puts "1. Critically Endangered"
-    puts "2. Endangered"
-    puts "3. Vulnerable"
+    puts "1. Critically Endangered", "2. Endangered", "3. Vulnerable"
+    print "> "
 
     input = gets.strip.downcase
 
-    #ADD SOME INPUT VERIFICATION
+    while input != "1" && input != "2" && input != "3"
+      if input == "exit"
+        return
+      else
+        puts "Please enter (1-3) or type exit."
+        print "> "
+        input = gets.strip.downcase
+      end
+    end
+
+    case input
+    when "1"
+      input = "Critically Endangered"
+    when "2"
+      input = "Endangered"
+    when "3"
+      input = "Vulnerable"
+    end
 
     print_animal_list(input)
 
-    puts ""
-    puts "Which animal would you like to get more information on? Please type the number or exit."
-    puts ""
-
+    puts "", "Which animal would you like to get more information on? Please type the number or exit."
+    print "> "
     input = gets.strip.downcase
+
+    if input == "exit"
+      return
+    end
 
     get_animal_description(input)
 
     puts "", "Would you like to see another animal? Please enter Y or N."
+    print "> "
 
     input = gets.strip.downcase
     while input != "n"
@@ -39,16 +58,19 @@ class EndangeredAnimals::CLI
         start
       else
         puts "Please enter Y to see another animal or N to exit."
+        print "> "
+        input = gets.strip.downcase
       end
-      input = gets.strip.downcase
     end
     return
   end
 
   def print_animal_list(input)
-    puts "getting animal list"
-
-
+    puts "", "-------Animal Name-----------Scientific Name---------Conservation Status------"
+    animals = EndangeredAnimals::Animal.create_from_index_page(input)
+    animals.each.with_index(1) do |animal, index|
+      puts "#{index}.    #{animal.name}    #{animal.scientific_name}    #{animal.status}       #{animal.url}"
+    end
   end
 
   def get_animal_description(input)
