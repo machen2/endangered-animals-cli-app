@@ -34,11 +34,15 @@ class EndangeredAnimals::Animal
   end
 
   def self.get_animal_information(input)
-    self.new("Amur Leopard", "Scientific Name", "Critcally Endangered", "https://www.worldwildlife.org/species/amur-leopard")
     index = input.to_i - 1
     animal_url = @@all[index].url
 
     doc = Nokogiri::HTML(open(animal_url))
+
+    @@all[index].habitat = doc.css("ul.list-data li:nth-child(2) div a").text.strip
+    if @@all[index].habitat = ""
+      @@all[index].habitat = "Unlisted"
+    end
 
     @@all[index].description = doc.css("div.span4.gutter-top-in-4.gutter-bottom-in-2.gutter-horiz-in div p").text.strip
 
