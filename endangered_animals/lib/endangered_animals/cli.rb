@@ -3,12 +3,19 @@ class EndangeredAnimals::CLI
 
   def call
     welcome
-    start
+    call_start
     goodbye
   end
 
   def welcome
     puts "", "Welcome to the Endangered Animals CLI!", ""
+  end
+
+  def call_start
+    restart = true
+    while restart
+      restart = start
+    end
   end
 
   def start
@@ -20,7 +27,7 @@ class EndangeredAnimals::CLI
 
     while input != "1" && input != "2" && input != "3"
       if input == "exit"
-        return
+        return false
       else
         puts "Please enter (1-3) or type exit."
         print "> "
@@ -44,7 +51,7 @@ class EndangeredAnimals::CLI
     input = gets.strip.downcase
 
     if input == "exit"
-      return
+      return false
     end
 
     get_animal_description(input)
@@ -52,17 +59,19 @@ class EndangeredAnimals::CLI
     puts "", "Would you like to see another animal? Please enter Y or N."
     print "> "
 
+    input = nil
     input = gets.strip.downcase
     while input != "n"
+      puts "your input is #{input}"
       if input == "y"
-        start
+        return true
       else
         puts "Please enter Y to see another animal or N to exit."
         print "> "
         input = gets.strip.downcase
       end
     end
-    return
+    return false
   end
 
   def print_animal_list(input)
@@ -76,9 +85,15 @@ class EndangeredAnimals::CLI
   end
 
   def get_animal_description(input)
-    puts "getting animal description"
+    animal = EndangeredAnimals::Animal.get_animal_information(input)
 
-    # 
+    puts "", "                     ~ #{animal.name} ~"
+    puts "-------------------------------------------------------------------"
+    puts "Scientific Name: #{animal.scientific_name}"
+    puts "Status: #{animal.status}"
+    puts "Population: #{animal.population}"
+    puts "Habitat: #{animal.habitat}"
+    puts "Description:", " #{animal.description}"
   end
 
   def goodbye

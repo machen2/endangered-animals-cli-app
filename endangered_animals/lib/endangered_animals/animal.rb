@@ -12,6 +12,10 @@ class EndangeredAnimals::Animal
     @@all << self
   end
 
+  def self.all
+    @@all
+  end
+
   def self.create_from_index_page(input)
     doc = Nokogiri::HTML(open("https://www.worldwildlife.org/species/directory?direction=desc&sort=extinction_status"))
     @@all = []
@@ -20,7 +24,7 @@ class EndangeredAnimals::Animal
       name = x.css("td")[0].text
       scientific_name = x.css("td")[1].text
       status = x.css("td")[2].text
-      url = x.css("td a").attribute("href").text
+      url = "https://www.worldwildlife.org" + x.css("td a").attribute("href").text
 
       if input == status
         self.new(name, scientific_name, status, url)
@@ -29,9 +33,16 @@ class EndangeredAnimals::Animal
     @@all
   end
 
-  def self.all
-    #should return instances of animals
-    @@all
-  end
+  def self.get_animal_information(input)
+    index = input.to_i - 1
+    animal_url = @@all[index].url
 
+    doc = Nokogiri::HTML(open(animal_url))
+
+    @@all[index].population = doc.css("li:nth-child(2) div.container").text.strip
+    @@all[index].habitat = doc.css("ul.list-data li:nth-child(2) div.lead a").text.strip
+    @@all[index].description = doc.css("div.span4.gutter-top-in-4.gutter-bottom-in-2.gutter-horiz-in div p").text.strip
+
+    return @@all[index]
+  end
 end
