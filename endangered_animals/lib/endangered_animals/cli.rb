@@ -76,11 +76,11 @@ class EndangeredAnimals::CLI
 
   def print_animal_list(input)
     puts "", "Listing the animals under the #{input} conservation status."
-    puts "", "      Animal Name                  Scientific Name               "#Conservation Status"
-    puts "-------------------------------------------------------------------" #{}"--------------------"
+    puts "", "      Animal Name                  Scientific Name               "
+    puts "-------------------------------------------------------------------"
     animals = EndangeredAnimals::Animal.create_from_index_page(input)
     animals.each.with_index(1) do |animal, index|
-      puts "#{index.to_s.rjust(2)}#{".".ljust(3)} #{animal.name.ljust(28)} #{animal.scientific_name.ljust(30)}" #" #{animal.status}"
+      puts "#{index.to_s.rjust(2)}#{".".ljust(3)} #{animal.name.ljust(28)} #{animal.scientific_name.ljust(30)}"
     end
   end
 
@@ -93,7 +93,7 @@ class EndangeredAnimals::CLI
     puts "Status: #{animal.status}"
     puts "Population: #{animal.population}"
     puts "Habitat: #{animal.habitat}"
-    puts "Description:", " #{animal.description}"
+    puts "Description:", "#{animal.description}"
   end
 
   def goodbye
