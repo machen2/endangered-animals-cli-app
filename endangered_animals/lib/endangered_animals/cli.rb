@@ -66,6 +66,7 @@ class EndangeredAnimals::CLI
   end
 
   def print_animal_list(input)
+    puts "", "Listing the animals under the #{input} conservation status."
     puts "", "      Animal Name                  Scientific Name               "#Conservation Status"
     puts "-------------------------------------------------------------------" #{}"--------------------"
     animals = EndangeredAnimals::Animal.create_from_index_page(input)
@@ -76,6 +77,8 @@ class EndangeredAnimals::CLI
 
   def get_animal_description(input)
     puts "getting animal description"
+
+    # 
   end
 
   def goodbye
