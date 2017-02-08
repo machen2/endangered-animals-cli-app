@@ -24,7 +24,7 @@ class EndangeredAnimals::Animal
       name = x.css("td")[0].text
       scientific_name = x.css("td")[1].text
       if scientific_name == ""
-        scientific_name = "Unlisted"
+        scientific_name = "[Unlisted]"
       end
       status = x.css("td")[2].text
       url = "https://www.worldwildlife.org" + x.css("td a").attribute("href").text
@@ -44,7 +44,7 @@ class EndangeredAnimals::Animal
 
     @@all[index].habitat = doc.css("ul.list-data li:nth-child(2) div a").text.strip
     if @@all[index].habitat == ""
-      @@all[index].habitat = "Unlisted"
+      @@all[index].habitat = "[Unlisted]"
     end
 
     @@all[index].description = doc.css("div.span4.gutter-top-in-4.gutter-bottom-in-2.gutter-horiz-in div p").text.strip
@@ -52,7 +52,7 @@ class EndangeredAnimals::Animal
     if doc.css("div.span2 ul li:nth-child(2) strong.hdr").text.strip.downcase == "population"
       @@all[index].population = doc.css("li:nth-child(2) div.container").text.strip
     else
-      @@all[index].population = "Unlisted"
+      @@all[index].population = "[Unlisted]"
     end
 
     return @@all[index]

@@ -62,7 +62,6 @@ class EndangeredAnimals::CLI
     input = nil
     input = gets.strip.downcase
     while input != "n"
-      puts "your input is #{input}"
       if input == "y"
         return true
       else
@@ -87,13 +86,15 @@ class EndangeredAnimals::CLI
   def get_animal_description(input)
     animal = EndangeredAnimals::Animal.get_animal_information(input)
 
-    puts "", "                     ~ #{animal.name} ~"
+    puts "", "                 ~* #{animal.name} *~"
     puts "-------------------------------------------------------------------"
-    puts "Scientific Name: #{animal.scientific_name}"
-    puts "Status: #{animal.status}"
-    puts "Population: #{animal.population}"
-    puts "Habitat: #{animal.habitat}"
-    puts "Description:", "#{animal.description}"
+    puts "Scientific Name:          #{animal.scientific_name}"
+    puts "Status:                   #{animal.status}"
+    puts "Population:               #{animal.population}"
+    puts "Habitat:                  #{animal.habitat}"
+    puts "-----------------"
+    puts "| Description:  |"
+    puts "-----------------", "#{animal.description}"
   end
 
   def goodbye
