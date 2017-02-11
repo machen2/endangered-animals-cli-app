@@ -29,7 +29,7 @@ class EndangeredAnimals::Animal
       status = x.css("td")[2].text
       url = "https://www.worldwildlife.org" + x.css("td a").attribute("href").text
 
-      if input == status
+      if input == status #instantiate animals that are the status that user chooses
         self.new(name, scientific_name, status, url)
       end
     end

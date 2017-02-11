@@ -8,7 +8,7 @@ class EndangeredAnimals::CLI
   end
 
   def welcome
-    puts "", "Welcome to the Endangered Animals CLI!", ""
+    puts "", "Welcome to the Endangered Animals CLI!"
   end
 
   def call_start
@@ -19,29 +19,16 @@ class EndangeredAnimals::CLI
   end
 
   def start
-    puts "Enter the number of the conservation status you would like to see or type exit:"
+    puts "", "Enter the number of the conservation status you would like to see or type exit:"
     puts "1. Critically Endangered", "2. Endangered", "3. Vulnerable"
     print "> "
 
     input = gets.strip.downcase
 
-    while input != "1" && input != "2" && input != "3"
-      if input == "exit"
-        return false
-      else
-        puts "Please enter (1-3) or type exit."
-        print "> "
-        input = gets.strip.downcase
-      end
-    end
+    input = verification_one(input)
 
-    case input
-    when "1"
-      input = "Critically Endangered"
-    when "2"
-      input = "Endangered"
-    when "3"
-      input = "Vulnerable"
+    if input == false
+      return false
     end
 
     print_animal_list(input)
@@ -50,7 +37,9 @@ class EndangeredAnimals::CLI
     print "> "
     input = gets.strip.downcase
 
-    if input == "exit"
+    input = verification_two(input)
+
+    if input == false
       return false
     end
 
@@ -61,18 +50,11 @@ class EndangeredAnimals::CLI
 
     input = nil
     input = gets.strip.downcase
-    while input != "n"
-      if input == "y"
-        return true
-      else
-        puts "Please enter Y to see another animal or N to exit."
-        print "> "
-        input = gets.strip.downcase
-      end
-    end
-    return false
+
+    return verification_three(input)
   end
 
+######### PRINTING METHODS #########
   def print_animal_list(input)
     puts "", "Listing the animals under the #{input} conservation status."
     puts "", "      Animal Name                  Scientific Name               "
@@ -97,6 +79,54 @@ class EndangeredAnimals::CLI
     puts "-----------------", "#{animal.description}"
   end
 
+######### INPUT VERIFICATION METHODS #########
+  def verification_one(input)
+    while input != "1" && input != "2" && input != "3"
+      if input == "exit"
+        return false
+      else
+        puts "Please enter (1-3) or type exit."
+        print "> "
+        input = gets.strip.downcase
+      end
+    end
+
+    case input
+    when "1"
+      input = "Critically Endangered"
+    when "2"
+      input = "Endangered"
+    when "3"
+      input = "Vulnerable"
+    end
+    input
+  end
+
+  def verification_two(input)
+    if input == "exit"
+      return false
+    end
+
+    while input.to_i <= 0 || input.to_i > (EndangeredAnimals::Animal.all.length)
+      puts "Please enter a number between 1 and #{EndangeredAnimals::Animal.all.length}."
+      input = gets.strip
+    end
+    input
+  end
+
+  def verification_three(input)
+    while input != "n"
+      if input == "y"
+        return true
+      else
+        puts "Please enter Y to see another animal or N to exit."
+        print "> "
+        input = gets.strip.downcase
+      end
+    end
+    return false
+  end
+######## CLOSING METHOD #########
   def goodbye
     puts "", "Thank you! Goodbye :)"
   end

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require './lib/endangered_animals'
-#require "bundler/setup"
-#require "endangered_animals"
+#require "bundler/setup"            #################
+#require "endangered_animals"       #################
 
 EndangeredAnimals::CLI.new.call
