@@ -44,31 +44,20 @@ class EndangeredAnimals::Scraper
     doc = Nokogiri::HTML(open(animal_url))
 
     if doc.css("div.span6 ul.list-data.list-spaced li:nth-child(1) strong").text.strip.downcase
-      if doc.css("div.span6 ul.list-data.list-spaced li:nth-child(1) strong").text.strip.downcase == "places" #|| doc.css("div.span6 ul.list-data.list-spaced li strong").text.strip.downcase == "places"
-        places = []
-        places << doc.css("ul.list-data.list-spaced li:nth-child(1) div.lead").text.strip
-        animal.place = places.join(", ")
-
-        habitats = []
-        habitats << doc.css("ul.list-data.list-spaced li:nth-child(2) div.lead").text.strip
-        animal.habitat = habitats.join(", ")
+      if doc.css("div.span6 ul.list-data.list-spaced li:nth-child(1) strong").text.strip.downcase == "places"
+        animal.place = doc.css("ul.list-data.list-spaced li:nth-child(1) div.lead").text.strip
+        animal.habitat = doc.css("ul.list-data.list-spaced li:nth-child(2) div.lead").text.strip
 
       elsif doc.css("div.span6 ul.list-data.list-spaced li:nth-child(1) strong").text.strip.downcase == "habitats"
-        habitats = []
-        habitats << doc.css("ul.list-data.list-spaced li:nth-child(1) div.lead").text.strip
-        animal.habitat = habitats.join(", ")
+        animal.habitat = doc.css("ul.list-data.list-spaced li:nth-child(1) div.lead").text.strip
       end
 
     elsif doc.css("div.span6 ul.list-data.list-spaced li strong").text.strip.downcase == "places"
-      places = []
-      places << doc.css("ul.list-data.list-spaced li div.lead").text.strip
-      animal.place = places.join(", ")
+      animal.place = doc.css("ul.list-data.list-spaced li div.lead").text.strip
       animal.habitat = "[Unlisted]"
 
     elsif doc.css("div.span6 ul.list-data.list-spaced li strong").text.strip.downcase == "habitat"
-      habitats = []
-      habitats << doc.css("ul.list-data.list-spaced li div.lead").text.strip
-      animal.habitat = habitats.join(", ")
+      animal.habitat = doc.css("ul.list-data.list-spaced li div.lead").text.strip
       animal.place = "[Unlisted]"
     end
 
