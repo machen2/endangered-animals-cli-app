@@ -59,14 +59,14 @@ class EndangeredAnimals::CLI
     puts "", "Listing the animals under the #{input} conservation status."
     puts "", "      Animal Name                  Scientific Name               "
     puts "-------------------------------------------------------------------"
-    animals = EndangeredAnimals::Animal.create_from_index_page(input)
+    animals = EndangeredAnimals::Scraper.create_from_index_page(input)
     animals.each.with_index(1) do |animal, index|
       puts "#{index.to_s.rjust(2)}#{".".ljust(3)} #{animal.name.ljust(28)} #{animal.scientific_name.ljust(30)}"
     end
   end
 
   def get_animal_description(input)
-    animal = EndangeredAnimals::Animal.get_animal_information(input)
+    animal = EndangeredAnimals::Scraper.get_animal_information(input)
 
     puts "", "                 ~* #{animal.name} *~"
     puts "-------------------------------------------------------------------"
@@ -108,8 +108,12 @@ class EndangeredAnimals::CLI
     end
 
     while input.to_i <= 0 || input.to_i > (EndangeredAnimals::Animal.all.length)
-      puts "Please enter a number between 1 and #{EndangeredAnimals::Animal.all.length}."
+      puts "Please enter a number between 1 and #{EndangeredAnimals::Animal.all.length} or type exit."
       input = gets.strip
+
+      if input == "exit"
+        return false
+      end
     end
     input
   end
