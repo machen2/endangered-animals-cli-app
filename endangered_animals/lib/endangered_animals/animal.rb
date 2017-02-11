@@ -1,5 +1,5 @@
 class EndangeredAnimals::Animal
-  attr_accessor :name, :scientific_name, :status, :url, :population, :habitat, :description
+  attr_accessor :name, :scientific_name, :status, :url, :population, :habitat, :place, :description
 
   @@all = []
 

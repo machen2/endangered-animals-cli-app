@@ -96,6 +96,7 @@ class EndangeredAnimals::CLI
     puts "Status:                   #{animal.status}"
     puts "Population:               #{animal.population}"
     puts "Habitat:                  #{animal.habitat}"
+    puts "Places:                   #{animal.place}"
     puts "-----------------"
     puts "| Description:  |"
     puts "-----------------", "#{animal.description}"
