@@ -22,7 +22,9 @@ Or install it yourself as:
 
 Type the below and follow the on screen prompts. They will guide you through this gem.
 
-$ endangered-animals
+```ruby
+    $ endangered-animals
+```
 
 ## Development
 
