@@ -7,7 +7,6 @@ class EndangeredAnimals::Scraper
   ####################################################################################################################
   def self.create_from_index_page(input)
     doc = Nokogiri::HTML(open("https://www.worldwildlife.org/species/directory?direction=desc&sort=extinction_status"))
-    EndangeredAnimals::Animal.reset
 
     doc.xpath("//tbody/tr").each do |x|
       name = x.css("td")[0].text
@@ -22,7 +21,6 @@ class EndangeredAnimals::Scraper
         EndangeredAnimals::Animal.new(name, scientific_name, status, url)
       end
     end
-    EndangeredAnimals::Animal.all
   end
 
   ##################################################################################################################
@@ -30,11 +28,6 @@ class EndangeredAnimals::Scraper
   # Input: <input, string> user input                                                                              #
   # Output: <animal, EndangeredAnimals::Animal> animal instance with upsated info                                  #
   ##################################################################################################################
-
-  def self.temp
-    EndangeredAnimals::Scraper.create_from_index_page("Critically Endangered")
-    EndangeredAnimals::Scraper.get_animal_information("1")
-  end
 
   def self.get_animal_information(input)
     index = input.to_i - 1

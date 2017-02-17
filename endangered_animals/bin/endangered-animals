@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require './lib/endangered_animals'
+require_relative '../lib/endangered_animals'
 #require "bundler/setup"            #################
 #require "endangered_animals"       #################
 

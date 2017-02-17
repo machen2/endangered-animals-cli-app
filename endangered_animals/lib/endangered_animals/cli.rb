@@ -76,7 +76,9 @@ class EndangeredAnimals::CLI
     puts "", "Listing the animals under the #{input} conservation status."
     puts "", "      Animal Name                  Scientific Name               "
     puts "-------------------------------------------------------------------"
-    animals = EndangeredAnimals::Scraper.create_from_index_page(input)
+    EndangeredAnimals::Animal.reset
+    EndangeredAnimals::Scraper.create_from_index_page(input)
+    animals = EndangeredAnimals::Animal.all
     animals.each.with_index(1) do |animal, index|
       puts "#{index.to_s.rjust(2)}#{".".ljust(3)} #{animal.name.ljust(28)} #{animal.scientific_name.ljust(30)}"
     end
